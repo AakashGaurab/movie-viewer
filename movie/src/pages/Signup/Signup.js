@@ -29,18 +29,18 @@ function Signup() {
                 body:JSON.stringify(data),
             })
 
+
             let final_response = await response.json();
             console.log(final_response);
-            if (final_response=="User Created"){
+            if (final_response.msg=="User Created"){
                Swal.fire({
                 icon:"success",
-                title:final_response
+                title:final_response.msg
                })
             }
             else {
                 Swal.fire({
                     icon:"error",
-                    title:final_response
                 })
             }
         } catch (error) {

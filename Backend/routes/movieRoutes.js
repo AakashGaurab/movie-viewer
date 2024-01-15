@@ -7,7 +7,7 @@ movie.post('/post', async (req, res) => {
   try {
     // const movie = new Movie(req.body);
     await Movie.insertMany(req.body);
-    res.status(201).json(req.body);
+    res.status(201).json({"msg":"Movie added","data":req.body});
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
