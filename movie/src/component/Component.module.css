@@ -1,0 +1,7 @@
+.upper_button{
+    width: 80%;
+    height: fit-content;
+    margin: auto;
+    display: flex;
+    justify-content: end;
+}

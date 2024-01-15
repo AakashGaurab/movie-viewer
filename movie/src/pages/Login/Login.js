@@ -3,6 +3,7 @@ import Navbar from '../../component/Navbar'
 import Swal from 'sweetalert2'
 import style from './Login.module.css'
 import login_gif from './opt1.gif'
+import { loginRoute } from '../../utils/api'
 
 function Login() {
 
@@ -19,7 +20,7 @@ function Login() {
 
     async function fetch_login(data){
         try {
-            let response = await fetch("http://65.0.106.33:3501/user/login",{
+            let response = await fetch(loginRoute,{
                 method:"POST",
                 headers:{
                     "Content-type":"application/json",
