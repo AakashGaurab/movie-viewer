@@ -3,6 +3,7 @@ import Navbar from '../../component/Navbar'
 import style from './Signup.module.css';
 import signup_gif from './opt2.gif'
 import Swal from 'sweetalert2'
+import { signupRoute } from '../../utils/api';
 
 function Signup() {
     let signup = (e)=>{
@@ -20,7 +21,7 @@ function Signup() {
 
     async function fetch_signup(data){
         try {
-            let response = await fetch("http://65.0.106.33:3501/user/signup",{
+            let response = await fetch(signupRoute,{
                 method:"POST",
                 headers:{
                     "Content-type":"application/json",

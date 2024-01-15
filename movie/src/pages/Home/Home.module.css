@@ -1,0 +1,44 @@
+.dis{
+    width: 90%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+
+}
+
+.dis>div{
+    width: 80%;
+    height: fit-content;
+    margin: 3% 0% 2% 0%;
+    display: flex;
+    flex-direction: column;
+}
+
+.dis p{
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+.dis>div>div{
+    
+    display: flex;
+    justify-content: space-around;
+}
+
+@media screen and (max-width: 600px) {
+
+    .dis{
+        width: 90%;
+        margin: auto;
+        display: grid;
+        grid-template-columns: 1fr;
+    
+    }
+
+    .dis>div{
+        width: 80%;
+        height: fit-content;
+        margin: 3% 0% 2% 8%;
+        display: flex;
+        flex-direction: column;
+    }
+   }
