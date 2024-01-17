@@ -27,7 +27,8 @@ function CreateMovie() {
             body:JSON.stringify(obj)
         });
 
-        if (response.msg){
+
+        if (response.status==201){
             Swal.fire({
                 icon:"success",
             })
