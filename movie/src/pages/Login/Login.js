@@ -29,8 +29,9 @@ function Login() {
             })
 
             let final_response = await response.json();
+            console.log(final_response);
 
-            if (final_response.msg=="Login Succesfull"){
+            if (final_response.msg=="Login Succesful"){
                Swal.fire({
                 icon:"success",
                 title:final_response.msg
@@ -42,7 +43,6 @@ function Login() {
             else {
                 Swal.fire({
                     icon:"error",
-                    title:final_response
                 })
             }
         } catch (error) {

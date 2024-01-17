@@ -15,7 +15,7 @@ user.post("/signup",async(req,res)=>{
         }
         else {
             await user_model.insertMany([{name,email,password:hash}]);   // saving user to db
-            res.status(200).json({"msg":"Signup Succesful"});
+            res.status(200).json({"msg":"User Created"});
         }
     })
 

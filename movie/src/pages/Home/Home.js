@@ -5,7 +5,14 @@ import Movie from '../../component/Movie';
 import CreateMovie from '../../component/CreateMovie';
 import { allMovie } from '../../utils/api';
 
+
 function Home() {
+  let id = sessionStorage.getItem("token");
+  if (!id){
+    window.location.href="/login";
+  }
+
+
   let [movie,setMovies] = useState(null);
   useEffect(()=>{
     async function getData(){
