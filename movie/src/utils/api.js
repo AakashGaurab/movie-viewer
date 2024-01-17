@@ -1,4 +1,4 @@
-export const host = "http://localhost:3501";
+export const host = "https://movieviewerbackend.onrender.com";
 export const loginRoute = `${host}/user/login`;
 export const signupRoute = `${host}/user/signup`;
 export const allMovie = `${host}/movie/get-all`;
