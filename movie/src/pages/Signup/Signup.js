@@ -1,11 +1,13 @@
-import React from 'react'
+import React ,{useState}from 'react'
 import Navbar from '../../component/Navbar'
 import style from './Signup.module.css';
 import signup_gif from './opt2.gif'
 import Swal from 'sweetalert2'
 import { signupRoute } from '../../utils/api';
+import Loader from '../../component/Loader';
 
 function Signup() {
+  let [flag,setFlag] = useState(false);
     let signup = (e)=>{
         e.preventDefault();
         let obj = {};
@@ -15,7 +17,7 @@ function Signup() {
         document.querySelector("#validationCustomUsername").value = "";
         obj.password = document.querySelector("#validationCustom03").value;
         document.querySelector("#validationCustom03").value = "";
-        if (obj.email || obj.password || obj.name){
+        if (!obj.email || !obj.password || !obj.name){
           Swal.fire({
             icon:"error",
             title:"All details required"
@@ -28,6 +30,7 @@ function Signup() {
 
     async function fetch_signup(data){
         try {
+          setFlag(true);
             let response = await fetch(signupRoute,{
                 method:"POST",
                 headers:{
@@ -36,7 +39,7 @@ function Signup() {
                 body:JSON.stringify(data),
             })
 
-
+            setFlag(false);
             let final_response = await response.json();
             console.log(final_response);
             if (final_response.msg=="User Created"){
@@ -61,7 +64,7 @@ function Signup() {
     <>
     <Navbar/>
 
-    <div className={style.container}>
+    {flag?Loader:<div className={style.container}>
         <div>
         <h1>Signup to make an Account</h1>
         <form className="row g-3 needs-validation">
@@ -112,7 +115,7 @@ function Signup() {
         <img src={signup_gif} alt="signup_gif" />
       </div>
 
-    </div>
+    </div>}
     </>
   )
 }

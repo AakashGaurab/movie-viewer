@@ -21,9 +21,7 @@ function Loader() {
 <div className="spinner-border text-info" role="status">
   <span className="visually-hidden">Loading...</span>
 </div>
-<div className="spinner-border text-light" role="status">
-  <span className="visually-hidden">Loading...</span>
-</div>
+
 <div className="spinner-border text-dark" role="status">
   <span className="visually-hidden">Loading...</span>
 </div>

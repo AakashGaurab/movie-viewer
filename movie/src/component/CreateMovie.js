@@ -21,7 +21,7 @@ function CreateMovie() {
         obj.Poster = document.querySelector("#Poster").value;
         document.querySelector("#Poster").value="";
 
-        if (obj.Title||obj.Year||obj.imdbID||obj.Type||obj.Poster){   // validating empty data;
+        if (!obj.Title||!obj.Year||!obj.imdbID||!obj.Type||!obj.Poster){   // validating empty data;
           Swal.fire({
             icon:"info",
             title:"All Details Required"

@@ -1,12 +1,12 @@
-import React from 'react'
+import React ,{useState}from 'react'
 import Navbar from '../../component/Navbar'
 import Swal from 'sweetalert2'
 import style from './Login.module.css'
 import login_gif from './opt1.gif'
 import { loginRoute } from '../../utils/api'
-
+import Loader from '../../component/Loader'
 function Login() {
-
+  let [flag,setFlag] = useState(false);
     let login = (e)=>{
         e.preventDefault();
         let obj = {};
@@ -14,7 +14,7 @@ function Login() {
         document.querySelector("#validationCustomUsername").value = "";
         obj.password = document.querySelector("#validationCustom03").value;
         document.querySelector("#validationCustom03").value = "";
-        if (obj.email || obj.password){
+        if (!obj.email || !obj.password){
           Swal.fire({
             icon:"error",
             title:"All details required"
@@ -27,6 +27,7 @@ function Login() {
 
     async function fetch_login(data){
         try {
+          setFlag(true);
             let response = await fetch(loginRoute,{
                 method:"POST",
                 headers:{
@@ -34,6 +35,7 @@ function Login() {
                 },
                 body:JSON.stringify(data),
             })
+            setFlag(false);
 
             let final_response = await response.json();
             console.log(final_response);
@@ -64,6 +66,7 @@ function Login() {
   return (
     <>
     <Navbar/>
+     {flag?Loader:
     <div className={style.container}>
         <div>
         <h1>Welcome Login To Continue</h1>
@@ -112,6 +115,7 @@ function Login() {
       </div>
 
     </div>
+}
     </>
   )
 }
