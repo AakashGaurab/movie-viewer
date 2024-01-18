@@ -15,6 +15,13 @@ function Signup() {
         document.querySelector("#validationCustomUsername").value = "";
         obj.password = document.querySelector("#validationCustom03").value;
         document.querySelector("#validationCustom03").value = "";
+        if (obj.email || obj.password || obj.name){
+          Swal.fire({
+            icon:"error",
+            title:"All details required"
+          })
+          return;
+        }
         fetch_signup(obj);
     }
 
