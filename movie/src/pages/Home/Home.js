@@ -53,10 +53,12 @@ function Home() {
       return;
     }
     try {
+      setFlag(true);
       let response = await fetch(`https://www.omdbapi.com/?apikey=894a101c&s="${searchText}&page=1"`);
       let data = await response.json();
       console.log(data);
       setMovies(data.Search);
+      setFlag(false);
     } catch (error) {
       Swal.fire({
         icon:"error",
@@ -86,9 +88,7 @@ function Home() {
      })}
 
 
-
      </div>
-
     </>
   )
 }
