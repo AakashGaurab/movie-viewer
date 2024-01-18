@@ -36,8 +36,8 @@ app.listen(port,async()=>{
         console.log(error);
     }
     
-    if (port || key || num){
-        server.close(() => {
+    if (!port || !key || !num){
+        app.close(() => {
             console.log('Server stopped enviroment variable not found');
         });
     }
