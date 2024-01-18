@@ -7,6 +7,7 @@ import { allMovie } from '../../utils/api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import Swal from 'sweetalert2';
+import Loader from '../../component/Loader';   // importing loader
 
 function Home() {
   let id = sessionStorage.getItem("token");
@@ -16,17 +17,27 @@ function Home() {
 
 
   let [movie,setMovies] = useState(null);
+  let [flag,setFlag] = useState(false);
   useEffect(()=>{
     async function getData(){
-      let response = await fetch(allMovie,{
-        method:"GET",
-        headers:{
-          "Content-type":"application/json",
-          token:sessionStorage.getItem("token")
-        }
-      });
-      let data = await response.json();
-      setMovies(data);
+      try {              // try catch to handle error
+        setFlag(true);   // to display loader
+        let response = await fetch(allMovie,{
+          method:"GET",
+          headers:{
+            "Content-type":"application/json",
+            token:sessionStorage.getItem("token")
+          }
+        });
+        let data = await response.json();
+        setMovies(data);
+        setFlag(false);  // to turn off loader
+      } catch (error) {
+        Swal.fire({
+          icon:"error",
+          title:error
+        })
+      }
     }
 
     getData();
@@ -41,10 +52,18 @@ function Home() {
       })
       return;
     }
-    let response = await fetch(`http://www.omdbapi.com/?apikey=894a101c&s="${searchText}&page=1"`);
-    let data = await response.json();
-    console.log(data);
-    setMovies(data.Search);
+    try {
+      let response = await fetch(`https://www.omdbapi.com/?apikey=894a101c&s="${searchText}&page=1"`);
+      let data = await response.json();
+      console.log(data);
+      setMovies(data.Search);
+    } catch (error) {
+      Swal.fire({
+        icon:"error",
+        title:error
+      })
+    }
+    
   }
   return (
     <>
@@ -59,6 +78,7 @@ function Home() {
     
      <div class={style.dis}>
 
+     {flag?Loader:""}
      {movie && movie.map((element)=>{
       return (
       <Movie ele={element} />

@@ -2,7 +2,10 @@ import React ,{useState}from 'react'
 import style from "./Component.module.css";
 import Swal from 'sweetalert2'
 import { postMovie } from '../utils/api';
+import Loader from './Loader';
 function CreateMovie() {
+
+  let [flag,setFlag] = useState(false);
 
     let submitMovie=async(event)=>{
         event.preventDefault();
@@ -18,31 +21,50 @@ function CreateMovie() {
         obj.Poster = document.querySelector("#Poster").value;
         document.querySelector("#Poster").value="";
 
-        let response = await fetch(postMovie,{
-            method:"POST",
-            headers:{
-                "Content-Type":"application/json",
-                token:sessionStorage.getItem("token")
-            },
-            body:JSON.stringify(obj)
-        });
-
-
-        if (response.status==201){
-            Swal.fire({
-                icon:"success",
-            })
+        if (obj.Title||obj.Year||obj.imdbID||obj.Type||obj.Poster){   // validating empty data;
+          Swal.fire({
+            icon:"info",
+            title:"All Details Required"
+          })
+          return;
         }
         else {
-            Swal.fire({
-                icon:"error",
-                title:"Error Uplocading Data"
-            })
-        }
+          try {
+            setFlag(true);
+            let response = await fetch(postMovie,{
+              method:"POST",
+              headers:{
+                  "Content-Type":"application/json",
+                  token:sessionStorage.getItem("token")
+              },
+              body:JSON.stringify(obj)
+            });
+            setFlag(false)
 
+
+            if (response.status==201){
+                Swal.fire({
+                    icon:"success",
+                })
+            }
+            else {
+                Swal.fire({
+                    icon:"error",
+                    title:"Error Uplocading Data"
+                })
+            }
+          } catch (error) {
+            Swal.fire({
+              icon:"error",
+              title:error
+            })
+          }
+      }
     }
   return (
     <>
+    {
+      flag?Loader:
      <div className={style.upper_button}>
     <button type="button" className="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Create Movie</button>
     <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -89,6 +111,7 @@ function CreateMovie() {
         </div>
       </div>
     </div>
+}
     
     </>
   )

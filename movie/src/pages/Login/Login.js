@@ -14,6 +14,13 @@ function Login() {
         document.querySelector("#validationCustomUsername").value = "";
         obj.password = document.querySelector("#validationCustom03").value;
         document.querySelector("#validationCustom03").value = "";
+        if (obj.email || obj.password){
+          Swal.fire({
+            icon:"error",
+            title:"All details required"
+          })
+          return;
+        }
         fetch_login(obj);
     }
 
